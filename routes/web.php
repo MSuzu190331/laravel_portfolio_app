@@ -1,5 +1,8 @@
 <?php
 
+use App\Book;
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,5 +15,23 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $books = Book::all();
+    return view('books', ['books'=> $books ]);
+});
+
+Route::post('/book', function(Request $request) {
+    $validator = Validator::make($request->all(),[
+        'name' => 'required|max:255',
+    ]);
+
+    $book = new Book;
+    $book->title = $request->name;
+    $book->save();
+
+    return redirect('/');
+});
+
+Route::delete('/book/{book}', function(Book $book){
+    $book->delete();
+    return redirect('/');
 });
