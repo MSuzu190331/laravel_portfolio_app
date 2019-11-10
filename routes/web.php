@@ -35,3 +35,6 @@ Route::delete('/book/{book}', function(Book $book){
     $book->delete();
     return redirect('/');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
