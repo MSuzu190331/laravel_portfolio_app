@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     $books = Book::all();
     return view('books', ['books'=> $books ]);
@@ -35,6 +37,6 @@ Route::delete('/book/{book}', function(Book $book){
     $book->delete();
     return redirect('/');
 });
-Auth::routes();
+
 
 Route::get('/home', 'HomeController@index')->name('home');
